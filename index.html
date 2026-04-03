@@ -3,135 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaveEuropa.store</title>
+    <title>SaveEuropa.store • European Heritage Apparel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: #0a0a0a;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #050505;
             color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 16px;
+            overflow-x: hidden;
+        }
+        
+        .logo-font {
+            font-family: 'Cinzel', serif;
         }
 
-        .container {
-            max-width: 700px;
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: transparent;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate ease-in-out;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.95);
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(0.7); }
+            100% { opacity: 1; transform: scale(1.4); }
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffd700;
+            transition: width 0.4s ease;
+        }
+        
+        .nav-link:hover:after {
             width: 100%;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            font-weight: 700;
-            color: #ffd700;
-            margin-bottom: 8px;
-            line-height: 1.1;
+        .hero-title {
+            animation: fadeSlideUp 1.2s ease forwards;
+            opacity: 0;
+        }
+        
+        .hero-text {
+            animation: fadeSlideUp 1.4s ease forwards 0.3s;
+            opacity: 0;
         }
 
-        .tagline {
-            font-size: clamp(1rem, 4vw, 1.3rem);
-            color: #bbbbbb;
-            margin-bottom: 30px;
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .message {
-            background: #111111;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: clamp(20px, 5vw, 40px);
-            margin-bottom: 30px;
+        .product-card {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            animation: cardPop 0.8s forwards;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-12px) scale(1.03);
         }
 
-        .message h1 {
-            font-size: clamp(1.4rem, 5vw, 2rem);
-            margin-bottom: 12px;
+        @keyframes cardPop {
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .message p {
-            font-size: clamp(0.95rem, 3.8vw, 1.1rem);
-            line-height: 1.6;
-            color: #cccccc;
+        .gold-line {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ffd700, transparent);
+            width: 140px;
+            margin: 0 auto;
+            animation: lineGrow 2s ease forwards;
         }
 
-        .products {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 140px; }
         }
-
-        .product {
-            background: #1a1a1a;
-            color: #ffd700;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .status {
-            color: #ffd700;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 16px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            color: #666;
-            font-size: 0.85rem;
-        }
-
-        /* Extra small devices */
-        @media (max-width: 400px) {
-            .message {
-                padding: 18px 14px;
-            }
-
-            .product {
-                width: 100%;
-                text-align: center;
-            }
-        }
-
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="logo">SaveEuropa.store</div>
-        <div class="tagline">Premium Shirts & Hoodies</div>
+<body class="min-h-screen relative">
 
-        <div class="message">
-            <h1>Website Under Construction</h1>
-            <p>
-                We're building a clean collection of quality shirts and hoodies 
-                celebrating European heritage and identity.<br><br>
-                Launching very soon.
-            </p>
+    <!-- Animated Stars Background -->
+    <div id="stars-container" class="stars"></div>
 
-            <div class="products">
-                <div class="product">Shirts</div>
-                <div class="product">Hoodies</div>
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between">
+            <div onclick="window.location.reload()" class="flex-shrink-0 cursor-pointer">
+                <img src="icon.png" alt="SaveEuropa" class="h-8 sm:h-10 w-auto transition-transform hover:scale-110 duration-300">
+            </div>
+            
+            <div class="hidden md:flex items-center gap-x-7 text-sm uppercase tracking-widest font-medium text-zinc-300">
+                <a href="#shop" class="nav-link">Shop</a>
+                <a href="#" class="nav-link">Collections</a>
+                <a href="#" class="nav-link">Heritage</a>
+                <a href="#" class="nav-link">Journal</a>
+            </div>
+            
+            <button onclick="toggleCart()" class="relative flex items-center gap-2 text-amber-300 hover:text-white transition-all hover:scale-110">
+                <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                <span id="cart-count" class="absolute -top-1 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-medium">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="pt-28 sm:pt-32 pb-12 sm:pb-16 text-center relative min-h-screen flex flex-col">
+        <div class="flex-1 flex items-center justify-center">
+            <div class="max-w-5xl mx-auto px-5 sm:px-6">
+                <div class="logo-font text-6xl sm:text-[78px] md:text-[102px] leading-none tracking-[-2px] text-white font-medium hero-title">
+                    SAVEEUROPA
+                </div>
+                
+                <div class="mt-6 mb-8 sm:mb-10">
+                    <div class="gold-line"></div>
+                </div>
+                
+                <p class="text-lg sm:text-xl md:text-2xl text-zinc-300 max-w-xl mx-auto leading-relaxed hero-text px-4">
+                    Premium shirts &amp; hoodies celebrating European heritage, strength, and identity.
+                </p>
+                
+                <div class="mt-12 sm:mt-16">
+                    <a href="#shop" 
+                       class="inline-flex items-center gap-3 bg-amber-400 hover:bg-amber-300 text-zinc-950 px-8 sm:px-10 py-4 sm:py-5 rounded-full text-base sm:text-lg font-semibold transition-all hover:scale-105 active:scale-95">
+                        SHOP THE COLLECTION
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCROLL TO DISCOVER - Moved significantly lower -->
+        <div class="mt-auto pb-10 sm:pb-14">
+            <div class="flex flex-col items-center text-amber-300/60 text-xs tracking-[2px]">
+                SCROLL TO DISCOVER
+                <div class="mt-3 text-3xl animate-bounce">↓</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SHOP SECTION -->
+    <section id="shop" class="pb-20 sm:pb-28 bg-black/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-baseline mb-10">
+                <div class="uppercase text-amber-400 text-xs sm:text-sm tracking-[3px] font-medium">Signature Collection 2026</div>
+                <div onclick="loadMore()" 
+                     class="text-xs sm:text-sm flex items-center gap-2 cursor-pointer hover:text-amber-400 transition-colors">
+                    VIEW ALL <span class="text-lg leading-none">→</span>
+                </div>
             </div>
 
-            <div class="status">● IN DEVELOPMENT</div>
+            <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+                <!-- Products populated by JS -->
+            </div>
         </div>
+    </section>
 
-        <div class="footer">
-            © 2026 SaveEuropa.store • All Rights Reserved
+    <footer class="py-10 sm:py-12 text-center text-xs text-zinc-500 border-t border-white/10 bg-black/50">
+        © 2026 SaveEuropa.store • All Rights Reserved • Proudly European
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-zinc-950 border-l border-amber-400/30 translate-x-full transition-transform duration-500 z-[100] flex flex-col">
+        <div class="p-6 sm:p-8 border-b border-white/10 flex justify-between items-center">
+            <div class="text-xl sm:text-2xl">Your Cart</div>
+            <button onclick="toggleCart()" class="text-4xl text-zinc-400 hover:text-white">×</button>
+        </div>
+        
+        <div id="cart-items" class="flex-1 p-6 sm:p-8 overflow-auto space-y-8">
+            <!-- JS filled -->
+        </div>
+        
+        <div class="p-6 sm:p-8 border-t border-white/10">
+            <div class="flex justify-between text-lg mb-8">
+                <span>Subtotal</span>
+                <span id="cart-total" class="font-semibold text-amber-300">€0</span>
+            </div>
+            <button onclick="checkout()" 
+                    class="w-full py-5 sm:py-6 bg-amber-400 text-zinc-950 rounded-2xl font-semibold text-base sm:text-lg hover:bg-white transition-all">
+                PROCEED TO CHECKOUT
+            </button>
         </div>
     </div>
+
+    <script>
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            for (let i = 0; i < 180; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `-${Math.random() * 4}s`;
+                container.appendChild(star);
+            }
+        }
+
+        let products = [
+            { id: 1, name: "Leonidas Heritage Tee", price: 49, image: "1.png" },
+            { id: 2, name: "Colosseum Strength Shirt", price: 52, image: "1.png" },
+            { id: 3, name: "Viking Bloodline Oversize", price: 55, image: "1.png" },
+            { id: 4, name: "Empire Guardian Tee", price: 48, image: "1.png" },
+            { id: 5, name: "Spartan Shield Heavyweight", price: 59, image: "1.png" },
+            { id: 6, name: "Celtic Knot Legacy Shirt", price: 51, image: "1.png" },
+            { id: 7, name: "Knights Templar Edition", price: 57, image: "1.png" },
+            { id: 8, name: "Roman Aquila Pride Tee", price: 49, image: "1.png" }
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            
+            products.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = `product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer group`;
+                card.style.animationDelay = `${index * 60}ms`;
+                
+                card.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" 
+                             class="w-full aspect-square object-cover transition-all duration-700 group-hover:scale-105">
+                        <div class="absolute top-3 right-3 bg-black/70 text-amber-300 text-[10px] px-3 py-1 rounded-full backdrop-blur">
+                            NEW
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-6">
+                        <div class="font-medium text-sm sm:text-base leading-tight line-clamp-2 h-10 sm:h-12">${product.name}</div>
+                        <div class="mt-5 flex items-center justify-between">
+                            <div class="text-xl sm:text-2xl font-light text-amber-300">€${product.price}</div>
+                            <button onclick="event.stopImmediatePropagation(); addToCart(${product.id});" 
+                                    class="px-5 py-2.5 text-xs bg-white/10 hover:bg-amber-400 hover:text-zinc-950 rounded-2xl transition-all font-medium">
+                                ADD
+                            </button>
+                        </div>
+                    </div>
+                `;
+                card.onclick = () => quickView(product.id);
+                grid.appendChild(card);
+            });
+        }
+
+        function quickView(id) {
+            const product = products.find(p => p.id === id);
+            alert(`Viewing:\n\n${product.name}\n€${product.price}`);
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            cart.push(product);
+            updateCartCount();
+            showToast(`${product.name} added`);
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        function showToast(msg) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #18181b; color: #fcd34d; padding: 14px 28px; border-radius: 9999px; box-shadow: 0 10px 15px -3px rgb(0 0 0); z-index: 99999; border: 1px solid #ca8a04;`;
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2800);
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('translate-x-full');
+            if (!drawer.classList.contains('translate-x-full')) renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-20 text-zinc-400 text-sm">Your cart is empty</div>`;
+                document.getElementById('cart-total').textContent = '€0';
+                return;
+            }
+            let total = 0;
+            cart.forEach((item, i) => {
+                total += item.price;
+                container.innerHTML += `
+                    <div class="flex gap-4">
+                        <img src="${item.image}" class="w-16 h-16 object-cover rounded-2xl">
+                        <div class="flex-1">
+                            <div class="text-sm">${item.name}</div>
+                            <div class="text-amber-300 mt-1">€${item.price}</div>
+                        </div>
+                        <button onclick="removeFromCart(${i}); event.stopImmediatePropagation()" class="text-xl text-zinc-400 hover:text-red-400">×</button>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-total').textContent = `€${total}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            renderCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            const total = cart.reduce((a, b) => a + b.price, 0);
+            alert(`Thank you!\n\nOrder total: €${total}\n\n(This is a demo store)`);
+            cart = [];
+            updateCartCount();
+            toggleCart();
+        }
+
+        function loadMore() {
+            showToast("More heritage designs coming soon...");
+        }
+
+        window.onload = () => {
+            createStars();
+            renderProducts();
+            updateCartCount();
+        };
+    </script>
 </body>
 </html>
